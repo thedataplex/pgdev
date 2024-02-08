@@ -1,0 +1,396 @@
+import "package:flutter/material.dart";
+
+int mbcnt = 0;
+int rcbcnt = 0;
+int fcbcnt = 0;
+int lbcnt = 0;
+int fbcnt = 0;
+int tsbcnt = 0;
+int cbcnt = 0;
+int sbcnt = 0;
+int pbcnt = 0;
+const String dptitle = "DataPlex PanicGrip";
+
+void main()
+{
+		//runApp(DPFlashLightApp());
+		runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget 
+{
+	final ButtonStyle style =
+	ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 80),
+																primary: Colors.deepOrangeAccent.shade700,
+																onPrimary: Colors.yellow);
+
+	final ButtonStyle style2 =
+	ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 30),
+																primary: Colors.blueAccent.shade400,
+																onPrimary: Colors.yellow);
+
+	@override
+	Widget build(BuildContext context) {
+		return MaterialApp(
+			home: Scaffold(
+			appBar: AppBar(
+				title: Text("Panic Grip"),
+				centerTitle: true,
+				backgroundColor: Colors.orangeAccent,
+				bottom: PreferredSize(
+					preferredSize: const Size.fromHeight(4.0),
+					child: Container(
+						color: Colors.blue,
+						height: 4.0,
+					),
+				)
+			),
+			body: Container(
+				padding: EdgeInsets.all(12.0),
+				child: GridView.count(
+				primary: false,
+				padding: const EdgeInsets.all(20),
+				crossAxisSpacing: 10,
+				mainAxisSpacing: 10,
+				crossAxisCount: 2,
+				children: <Widget>[
+					Container(
+						padding: const EdgeInsets.all(8),
+							color: Colors.teal[100],
+						//child: const Text("He'd have you all unravel at the"),
+							child: ElevatedButton.icon(
+								style: style2,
+								onPressed: () {processMicButton(context);},
+								label: const Text('Microphone'),
+								icon: Icon(Icons.mic_rounded),
+							),
+					),
+
+					Container(
+						padding: const EdgeInsets.all(8),
+							color: Colors.teal[200],
+						//child: const Text('Heed not the rabble'),
+							child: ElevatedButton.icon(
+								style: style2,
+								onPressed: () {processRearCameraButton(context);},
+								label: const Text('Rear Camera'),
+								icon: Icon(Icons.camera_alt),
+							),
+					),
+
+					Container(
+						padding: const EdgeInsets.all(8),
+						color: Colors.teal[300],
+					//child: const Text('Sound of screams but the'),
+						child: ElevatedButton.icon(
+							style: style2,
+							onPressed: () {processFrontCameraButton(context);},
+							label: const Text('Front Camera'),
+							icon: Icon(Icons.camera_alt_outlined),
+						),
+					),
+
+					Container(
+						padding: const EdgeInsets.all(8),
+							color: Colors.teal[400],
+						//child: const Text('Who scream'),
+							child: ElevatedButton.icon(
+								style: style2,
+								onPressed: () {processLocationButton(context);},
+								label: const Text('Location'),
+								icon: Icon(Icons.add_location_alt_sharp),
+							),
+					),
+
+					Container(
+						padding: const EdgeInsets.all(8),
+						color: Colors.teal[500],
+					//child: const Text('Revolution is coming...'),
+						child: ElevatedButton.icon(
+							style: style2,
+							onPressed: () {processFlashlightButton(context);},
+							label: const Text('Flashlight'),
+							icon: Icon(Icons.flashlight_on_sharp),
+						),
+					),
+
+					Container(
+						padding: const EdgeInsets.all(8),
+						color: Colors.teal[600],
+					//child: const Text('Revolution, they...'),
+						child: ElevatedButton.icon(
+							style: style2,
+							onPressed: () {processTextSMSButton(context);},
+							label: const Text('Text/SMS'),
+							icon: Icon(Icons.sms),
+						),
+					), //Container
+
+					Container(
+						padding: const EdgeInsets.all(8),
+						color: Colors.teal[600],
+					//child: const Text('Revolution, they...'),
+						child: ElevatedButton.icon(
+							style: style2,
+							onPressed: () {processCallButton(context);},
+							label: const Text('Call'),
+							icon: Icon(Icons.add_call),
+						),
+					), //Container
+
+					Container(
+						padding: const EdgeInsets.all(8),
+						color: Colors.teal[600],
+					//child: const Text('Revolution, they...'),
+						child: ElevatedButton.icon(
+							style: style2,
+							onPressed: () {processSettingsButton(context);},
+							label: const Text('Settings'),
+							icon: Icon(Icons.app_settings_alt),
+						),
+					), //Container
+				],
+			) //GridView.count
+		), //body: Container
+	), //home: Scaffold(
+	);//MaterialApp
+	}//Widget build
+}
+
+class DPFlashLightApp extends StatelessWidget 
+{
+		DPFlashLightApp({super.key});
+		var app = MaterialApp( home: DPFlashLightAppBody());
+		@override
+		Widget build(BuildContext context)
+		{
+				return app;
+		}
+}
+
+class DPFlashLightAppBody extends StatelessWidget
+{
+	const DPFlashLightAppBody({super.key});
+
+	AppBar get appbar
+	{
+		return AppBar( title: const Text(dptitle),
+										backgroundColor: Colors.orangeAccent,
+		);
+	}
+
+	Scaffold get scaffold
+	{
+		//return Scaffold(appBar: this.appbar, body: this.body);
+		return Scaffold(appBar: this.appbar, body: PanicGripMainButton(),
+				backgroundColor: Colors.orange.shade200,
+				bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            label: 'Business',
+          ),
+				/*
+          BottomNavigationBarItem(
+            icon: Icon(Icons.school),
+            label: 'School',
+          ),
+					*/
+          BottomNavigationBarItem(
+            icon: Icon(Icons.wifi),
+            label: 'Wifi',
+          ),
+        ],
+        //currentIndex: _selectedIndex,
+        //selectedItemColor: Colors.amber[800],
+        //onTap: _onItemTapped,
+      )
+		);
+	}
+	@override
+	Widget build(BuildContext context)
+	{
+		return this.scaffold;
+	}
+}
+
+class PanicGripMainButton extends StatefulWidget {
+	const PanicGripMainButton({super.key});
+
+	@override
+	//State<PanicGripMainButton> createState() => _PanicGripMainButtonState();
+	State<PanicGripMainButton> createState() => _PanicGripMainButtonState2();
+}
+
+class _PanicGripMainButtonState2 extends State<PanicGripMainButton> 
+{
+
+	@override
+	Widget build(BuildContext context) {
+	final ButtonStyle style =
+        ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 80),
+																primary: Colors.deepOrangeAccent.shade700,
+																onPrimary: Colors.yellow);
+
+	final ButtonStyle style2 =
+        ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 30),
+																primary: Colors.blueAccent.shade400,
+																onPrimary: Colors.yellow);
+
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          const SizedBox(height: 60),
+
+          ElevatedButton.icon(
+            style: style2,
+            onPressed: () {processMicButton(context);},
+            label: const Text('Microphone'),
+						icon: Icon(Icons.mic_rounded),
+          ),
+          ElevatedButton.icon(
+            style: style2,
+            onPressed: () {processRearCameraButton(context);},
+            label: const Text('Rear Camera'),
+						icon: Icon(Icons.camera_alt),
+          ),
+          ElevatedButton.icon(
+            style: style2,
+            onPressed: () {processFrontCameraButton(context);},
+            label: const Text('Front Camera'),
+						icon: Icon(Icons.camera_alt_outlined),
+          ),
+          ElevatedButton.icon(
+            style: style2,
+            onPressed: () {processLocationButton(context);},
+            label: const Text('Location'),
+						icon: Icon(Icons.add_location_alt_sharp),
+          ),
+          ElevatedButton.icon(
+            style: style2,
+            onPressed: () {processFlashlightButton(context);},
+            label: const Text('Flashlight'),
+						icon: Icon(Icons.flashlight_on_sharp),
+          ),
+          ElevatedButton.icon(
+            style: style2,
+            onPressed: () {processTextSMSButton(context);},
+            label: const Text('Text/SMS'),
+						icon: Icon(Icons.sms),
+          ),
+          //ElevatedButton(
+          ElevatedButton.icon(
+            style: style2,
+            onPressed: () {processCallButton(context);},
+            label: const Text('Call to 911'),
+						icon: Icon(Icons.add_call),
+          ),
+          ElevatedButton(
+            style: style,
+            //onPressed: () { },
+            //onPressed: _showcontent,
+            onPressed: () {processPanicButton(context);},
+            child: const Text('PANIC'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+void _showcontent(BuildContext context) 
+{
+	showDialog(
+		context: context, barrierDismissible: false, // user must tap button!
+
+		builder: (BuildContext context) {
+		return new AlertDialog(
+		//title: new Text('You clicked on'),
+		content: new SingleChildScrollView(
+		child: new ListBody(
+              children: [
+                new Text('Click OK to Proceed'),
+              ],
+            ),
+          ),
+          actions: [
+            new ElevatedButton(
+              child: new Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+  );
+}
+
+void processMicButton(BuildContext context)
+{
+	mbcnt = mbcnt + 1;
+	print("MicButton Pressed [$mbcnt] Times");
+	//_showcontent(context);
+}
+
+void processRearCameraButton(BuildContext context)
+{
+	rcbcnt = rcbcnt + 1;
+	print("RearCameraButton Pressed [$rcbcnt] Times");
+	//_showcontent(context);
+}
+
+void processFrontCameraButton(BuildContext context)
+{
+	fcbcnt = fcbcnt + 1;
+	print("FrontCameraButton Pressed [$fcbcnt] Times");
+	//_showcontent(context);
+}
+
+void processLocationButton(BuildContext context)
+{
+	lbcnt = lbcnt + 1;
+	print("LocationButton Pressed [$lbcnt] Times");
+	//_showcontent(context);
+}
+
+void processFlashlightButton(BuildContext context)
+{
+	fbcnt = fbcnt + 1;
+	print("FlashlightButton Pressed [$fbcnt] Times");
+	//_showcontent(context);
+}
+
+void processTextSMSButton(BuildContext context)
+{
+	tsbcnt = tsbcnt + 1;
+	print("TextSMSButton Pressed [$tsbcnt] Times");
+	//_showcontent(context);
+}
+
+void processCallButton(BuildContext context)
+{
+	cbcnt = cbcnt + 1;
+	print("CallButton Pressed [$cbcnt] Times");
+	//_showcontent(context);
+}
+
+void processSettingsButton(BuildContext context)
+{
+	sbcnt = sbcnt + 1;
+	print("SettingsButton Pressed [$sbcnt] Times");
+	//_showcontent(context);
+}
+
+void processPanicButton(BuildContext context)
+{
+	pbcnt = pbcnt + 1;
+	print("PanicButton Pressed [$pbcnt] Times");
+	//_showcontent(context);
+}

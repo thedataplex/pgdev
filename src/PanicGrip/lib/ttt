@@ -1,0 +1,145 @@
+import "dart:async";
+import "dart:io";
+import "package:flutter/material.dart";
+import "package:torch_controller/torch_controller.dart";
+import "package:geolocator/geolocator.dart";
+import "actions.dart";
+import 'package:image_picker/image_picker.dart';
+import 'package:video_player/video_player.dart';
+import 'package:camera/camera.dart';
+import 'package:image/image.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+int rcbcnt = 0;
+int fcbcnt = 0;
+
+void processRearCameraButton(BuildContext context)
+{
+	rcbcnt = rcbcnt + 1;
+	print("RearCameraButton Pressed [$rcbcnt] Times");
+	//_showcontent(context);
+}
+
+void cam() async
+{
+	final ImagePicker picker = ImagePicker();
+	final XFile? photo = await picker.pickImage(source: ImageSource.camera);
+	print(photo?.path);
+}
+
+void cam2() async
+{
+	WidgetsFlutterBinding.ensureInitialized();
+
+	final cameras = await availableCameras();
+	final firstCamera = cameras.first;
+	late CameraController controller;
+	late Future<void> _initializeControllerFuture;
+
+	controller = CameraController(firstCamera, ResolutionPreset.medium);
+
+	_initializeControllerFuture = controller.initialize();
+
+	try {
+		await _initializeControllerFuture;
+
+		//path = /Internal storage/Download/panicgrip.jpg
+		final String pgpath = "/Internal storage/Download/panicgrip.jpg";
+
+		final image = await controller!.takePicture();
+		print(image);
+		print(image.path);
+		//controller.dispose();
+		} catch (e) {
+			print(e);
+	}
+	print("cam2");
+}
+
+CameraImage? _savedImage;
+void cam3() async
+{
+	CameraController _camera;
+	bool _cameraInitialized = false;
+
+	List<CameraDescription> cameras = await availableCameras();
+// Create the CameraController
+  _camera = new CameraController(
+    cameras[0], ResolutionPreset.veryHigh
+  );
+// Initialize the CameraController
+  _camera.initialize().then((_) async{
+    // Start ImageStream
+    await _camera.startImageStream((CameraImage image) =>
+      _processCameraImage(image));
+        _cameraInitialized = true;
+  });
+
+	CameraPreview(_camera);
+	print("cam3");
+}
+
+void _processCameraImage(CameraImage image) async {
+	_savedImage = image;
+}
+
+void processFrontCameraButton(BuildContext context) async
+{
+	fcbcnt = fcbcnt + 1;
+	print("FrontCameraButton Pressed [$fcbcnt] Times");
+
+	Future<void> requestPermissions() async {
+  Map<Permission, PermissionStatus> status = await [
+    PermissionGroup.camera,
+    PermissionGroup.microphone,
+  ].request();
+
+  if (status[PermissionGroup.camera].isDenied) {
+    // Camera permission is denied
+  }
+
+  if (status[PermissionGroup.microphone].isDenied) {
+    // Microphone permission is denied
+  }
+}
+
+
+	/*
+
+	final perml = Permission.location;
+
+	if (await perml.isDenied) {
+		print("Location Permission Denied. Getting it now...");
+    await perml.request();
+  }
+
+	final permc = Permission.contacts;
+	if (await permc.isDenied) {
+		print("Contacts Permission Denied. Getting it now...");
+    permc.request();
+  }
+
+	final perma = Permission.audio;
+	if (await perma.isDenied) {
+		print("Audio Permission Denied. Getting it now...");
+    perma.request();
+  }
+
+	*/
+
+
+
+	/*
+	var status = await Permission.camera.status;
+	if (status.isDenied) {
+		print("here1:NO");
+	} else {
+		print("here2:YES");
+	}
+	*/
+
+	//cam();
+	//cam2();
+	//cam3();
+
+}
