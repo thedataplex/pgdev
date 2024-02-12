@@ -1,19 +1,20 @@
 run:
-	flutter run --release
+	@(cd PanicGrip; make $@)
 
 debug:
-	flutter run
+	@(cd PanicGrip; make $@)
 
 devices:
-	flutter devices
+	@(cd PanicGrip; make $@)
 
-doc:
-	flutter doctor -v
+doctor:
+	@(cd PanicGrip; make $@)
 
 studio:
-	/home/averma/work/panicgrip/android-studio/bin/studio.sh
+	@(cd PanicGrip; make $@)
 
 all:run
+
 
 r:run
 d:devices
