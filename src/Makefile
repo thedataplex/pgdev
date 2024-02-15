@@ -34,6 +34,10 @@ tts:
 	ln -s -f $(SRC_DIR)/lab/text_to_speech.dart PanicGrip/lib/main.dart
 	@(cd PanicGrip; flutter pub add flutter_tts ; make $@)
 
+call:
+	ln -s -f $(SRC_DIR)/lab/call.dart PanicGrip/lib/main.dart
+	@(cd PanicGrip; flutter pub add flutter_phone_direct_caller ; make $@)
+
 
 r:run
 d:devices
