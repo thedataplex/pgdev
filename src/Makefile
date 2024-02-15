@@ -38,6 +38,10 @@ call:
 	ln -s -f $(SRC_DIR)/lab/call.dart PanicGrip/lib/main.dart
 	@(cd PanicGrip; flutter pub add flutter_phone_direct_caller ; make $@)
 
+camera:
+	ln -s -f $(SRC_DIR)/lab/camera.dart PanicGrip/lib/main.dart
+	@(cd PanicGrip; flutter pub add camera ; make $@)
+
 
 r:run
 d:devices

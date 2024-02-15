@@ -18,6 +18,7 @@ all:run
 stt:debug
 tts:debug
 call:debug
+camera:debug
 
 vim:
 	export EDITOR=vim
