@@ -19,6 +19,8 @@ stt:debug
 tts:debug
 call:debug
 camera:debug
+sms:debug
+location:debug
 
 vim:
 	export EDITOR=vim

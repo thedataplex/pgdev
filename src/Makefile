@@ -42,6 +42,17 @@ camera:
 	ln -s -f $(SRC_DIR)/lab/camera.dart PanicGrip/lib/main.dart
 	@(cd PanicGrip; flutter pub add camera ; make $@)
 
+sms:
+	ln -s -f $(SRC_DIR)/lab/sms.dart PanicGrip/lib/main.dart
+	@(cd PanicGrip; flutter pub add flutter_sms ; make $@)
+sms2:
+	ln -s -f $(SRC_DIR)/lab/sms.dart PanicGrip/lib/main.dart
+	@(cd PanicGrip; flutter pub add sms_advanced ; make $@)
+
+location:
+	ln -s -f $(SRC_DIR)/lab/location.dart PanicGrip/lib/main.dart
+	@(cd PanicGrip; flutter pub add location ; make $@)
+
 
 r:run
 d:devices
