@@ -99,20 +99,20 @@ class DPPanicGripApp extends StatelessWidget
 	final ButtonStyle style_footer =
 	ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 40),
 																//primary: Colors.deepOrangeAccent.shade700,
-																primary: Colors.brown.shade900,
-																onPrimary: Colors.yellow
+																backgroundColor: Colors.brown.shade900,
+																foregroundColor: Colors.yellow
 																);
 	final ButtonStyle style =
 	ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 40),
-																primary: Colors.deepOrangeAccent.shade700,
-																onPrimary: Colors.yellow
+																foregroundColor: Colors.deepOrangeAccent.shade700,
+																backgroundColor: Colors.yellow
 																);
 
 	final ButtonStyle style2 =
 	ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 9),
 																//primary: Colors.black,
-																primary: Colors.brown.shade900,
-																onPrimary: Colors.orangeAccent,
+																backgroundColor: Colors.brown.shade900,
+																foregroundColor: Colors.orangeAccent,
 																);
 
 	@override

@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
-//void main() => runApp(PGTTSApp());
+void main() => runApp(PGTTSApp());
 
 class PGTTSApp extends StatefulWidget {
   @override

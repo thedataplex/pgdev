@@ -11,6 +11,8 @@ import 'package:alarmplayer/alarmplayer.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_isolate/flutter_isolate.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:speech_to_text/speech_to_text.dart';
+import 'tts.dart';
 
 String? _newVoiceText = "Hi This is Panic Grip App";
    int? _inputLength;
@@ -64,6 +66,8 @@ Future _getDefaultEngine(FlutterTts flutterTts) async {
 
 void processTextToSpeech() async
 {
+	runApp(PGTTSApp());
+	print("AVERMA:After TTS App");
 	FlutterTts flutterTts = FlutterTts();
 	Future<dynamic> _getLanguages() async => await flutterTts.getLanguages;
   Future<dynamic> _getEngines() async => await flutterTts.getEngines;

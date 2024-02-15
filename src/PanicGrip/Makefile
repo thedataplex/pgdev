@@ -15,6 +15,9 @@ studio:
 
 all:run
 
+stt:debug
+tts:debug
+
 vim:
 	export EDITOR=vim
 	@echo vim lib/main.dart
