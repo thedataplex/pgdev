@@ -60,7 +60,7 @@ class _DPAlarmScreenState extends State<DPAlarmScreen> {
 		return Scaffold(
 			appBar: getAppBar( titlestr),
 			body: getAlarmWidget(),
-			bottomNavigationBar: getBottomAppBar(context),
+			bottomNavigationBar: getBottomNavigationBar(context),
 		);
   }
 }    

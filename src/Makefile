@@ -1,6 +1,7 @@
 SRC_DIR = $(shell pwd)
 APK_NAME = PanicGrip
-OUTPUT_DIR = $(SRC_DIR)/../output
+OUTPUT_DIR_RELEASE = $(SRC_DIR)/../output/release
+OUTPUT_DIR_DEBUG = $(SRC_DIR)/../output/debug
 
 help:
 	$(info make run     => To run PanicGrip App in release mode )
@@ -17,7 +18,7 @@ run:
 		flutter pub run rename_app:main all=$(APK_NAME);\
 		make release;\
 	)
-	cp $(SRC_DIR)/PanicGrip/build/app/outputs/flutter-apk/app-release.apk $(OUTPUT_DIR)/$(APK_NAME).apk
+	cp $(SRC_DIR)/PanicGrip/build/app/outputs/flutter-apk/app-release.apk $(OUTPUT_DIR_RELEASE)/$(APK_NAME).apk
 
 debug:
 	ln -s -f PanicGrip/lib/main.dart PanicGrip/lib/mainPanicGrip.dart
@@ -43,7 +44,7 @@ stt:
 		flutter pub run rename_app:main all=$(APK_NAME);\
 		make debug;\
 	)
-	cp $(SRC_DIR)/PanicGrip/build/app/outputs/flutter-apk/app-release.apk $(OUTPUT_DIR)/$(APK_NAME).apk
+	cp $(SRC_DIR)/PanicGrip/build/app/outputs/flutter-apk/app-release.apk $(OUTPUT_DIR_DEBUG)/$(APK_NAME).apk
 
 tts:
 	$(eval APK_NAME := PGFlutterTTS)
@@ -54,7 +55,7 @@ tts:
 		flutter pub run rename_app:main all=$(APK_NAME);\
 		make debug;\
 	)
-	cp $(SRC_DIR)/PanicGrip/build/app/outputs/flutter-apk/app-release.apk $(OUTPUT_DIR)/$(APK_NAME).apk
+	cp $(SRC_DIR)/PanicGrip/build/app/outputs/flutter-apk/app-release.apk $(OUTPUT_DIR_DEBUG)/$(APK_NAME).apk
 
 call:
 	$(eval APK_NAME := PGFPDCaller)
@@ -65,7 +66,7 @@ call:
 		flutter pub run rename_app:main all=$(APK_NAME);\
 		make debug;\
 	)
-	cp $(SRC_DIR)/PanicGrip/build/app/outputs/flutter-apk/app-release.apk $(OUTPUT_DIR)/$(APK_NAME).apk
+	cp $(SRC_DIR)/PanicGrip/build/app/outputs/flutter-apk/app-release.apk $(OUTPUT_DIR_DEBUG)/$(APK_NAME).apk
 
 camera:
 	$(eval APK_NAME := PGCamera)
@@ -76,7 +77,7 @@ camera:
 		flutter pub run rename_app:main all=$(APK_NAME);\
 		make debug;\
 	)
-	cp $(SRC_DIR)/PanicGrip/build/app/outputs/flutter-apk/app-release.apk $(OUTPUT_DIR)/$(APK_NAME).apk
+	cp $(SRC_DIR)/PanicGrip/build/app/outputs/flutter-apk/app-release.apk $(OUTPUT_DIR_DEBUG)/$(APK_NAME).apk
 
 sms:
 	$(eval APK_NAME := PGFlutterSMS)
@@ -87,7 +88,7 @@ sms:
 		flutter pub run rename_app:main all=$(APK_NAME);\
 		make debug;\
 	)
-	cp $(SRC_DIR)/PanicGrip/build/app/outputs/flutter-apk/app-release.apk $(OUTPUT_DIR)/$(APK_NAME).apk
+	cp $(SRC_DIR)/PanicGrip/build/app/outputs/flutter-apk/app-release.apk $(OUTPUT_DIR_DEBUG)/$(APK_NAME).apk
 
 sms2:
 	$(eval APK_NAME := PGSMSAdvanced)
@@ -98,7 +99,7 @@ sms2:
 		flutter pub run rename_app:main all=$(APK_NAME);\
 		make debug;\
 	)
-	cp $(SRC_DIR)/PanicGrip/build/app/outputs/flutter-apk/app-release.apk $(OUTPUT_DIR)/$(APK_NAME).apk
+	cp $(SRC_DIR)/PanicGrip/build/app/outputs/flutter-apk/app-release.apk $(OUTPUT_DIR_DEBUG)/$(APK_NAME).apk
 
 location:
 	$(eval APK_NAME := PGLocation)
@@ -109,7 +110,7 @@ location:
 		flutter pub run rename_app:main all=$(APK_NAME);\
 		make debug;\
 	)
-	cp $(SRC_DIR)/PanicGrip/build/app/outputs/flutter-apk/app-release.apk $(OUTPUT_DIR)/$(APK_NAME).apk
+	cp $(SRC_DIR)/PanicGrip/build/app/outputs/flutter-apk/app-release.apk $(OUTPUT_DIR_DEBUG)/$(APK_NAME).apk
 
 curloc:
 	$(eval APK_NAME := PGCurrentLocation)
@@ -120,7 +121,7 @@ curloc:
 		flutter pub run rename_app:main all=$(APK_NAME);\
 		make debug;\
 	)
-	cp $(SRC_DIR)/PanicGrip/build/app/outputs/flutter-apk/app-release.apk $(OUTPUT_DIR)/$(APK_NAME).apk
+	cp $(SRC_DIR)/PanicGrip/build/app/outputs/flutter-apk/app-release.apk $(OUTPUT_DIR_DEBUG)/$(APK_NAME).apk
 
 go_router:
 	$(eval APK_NAME := PGGoRouter)
@@ -131,7 +132,7 @@ go_router:
 		flutter pub run rename_app:main all=$(APK_NAME);\
 		make debug;\
 	)
-	cp $(SRC_DIR)/PanicGrip/build/app/outputs/flutter-apk/app-release.apk $(OUTPUT_DIR)/$(APK_NAME).apk
+	cp $(SRC_DIR)/PanicGrip/build/app/outputs/flutter-apk/app-release.apk $(OUTPUT_DIR_DEBUG)/$(APK_NAME).apk
 
 device_meta:
 	$(eval APK_NAME := PGDeviceMeta)
@@ -142,7 +143,7 @@ device_meta:
 		flutter pub run rename_app:main all=$(APK_NAME);\
 		make debug;\
 	)
-	cp $(SRC_DIR)/PanicGrip/build/app/outputs/flutter-apk/app-release.apk $(OUTPUT_DIR)/$(APK_NAME).apk
+	cp $(SRC_DIR)/PanicGrip/build/app/outputs/flutter-apk/app-release.apk $(OUTPUT_DIR_DEBUG)/$(APK_NAME).apk
 
 background_location:
 	$(eval APK_NAME := PGBackgroundLocation)
@@ -153,7 +154,7 @@ background_location:
 		flutter pub run rename_app:main all=$(APK_NAME);\
 		make debug;\
 	)
-	cp $(SRC_DIR)/PanicGrip/build/app/outputs/flutter-apk/app-release.apk $(OUTPUT_DIR)/$(APK_NAME).apk
+	cp $(SRC_DIR)/PanicGrip/build/app/outputs/flutter-apk/app-release.apk $(OUTPUT_DIR_DEBUG)/$(APK_NAME).apk
 
 internet_connection_checker:
 	$(eval APK_NAME := PGInternetConnection)
@@ -164,7 +165,7 @@ internet_connection_checker:
 		flutter pub run rename_app:main all=$(APK_NAME);\
 		make debug;\
 	)
-	cp $(SRC_DIR)/PanicGrip/build/app/outputs/flutter-apk/app-release.apk $(OUTPUT_DIR)/$(APK_NAME).apk
+	cp $(SRC_DIR)/PanicGrip/build/app/outputs/flutter-apk/app-release.apk $(OUTPUT_DIR_DEBUG)/$(APK_NAME).apk
 
 
 r:run

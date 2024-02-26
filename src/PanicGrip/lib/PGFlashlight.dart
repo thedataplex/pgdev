@@ -85,7 +85,7 @@ class _DPFlashlightScreenState extends State<DPFlashlightScreen> {
 		return Scaffold(
 			appBar: getAppBar( titlestr),
 			body: getFlashlightWidget(),
-			bottomNavigationBar: getBottomAppBar(context),
+			bottomNavigationBar: getBottomNavigationBar(context),
 		);
 	}
 }
@@ -95,6 +95,7 @@ FutureOr<bool> ExitDPFlashlightScreen(BuildContext context)
 	dpthread?.kill();
 	disableTorch();
 	print("Exit: Flashlight Screen. Flashlight OFF");
+	torchon = false;
 	return true;
 }
 

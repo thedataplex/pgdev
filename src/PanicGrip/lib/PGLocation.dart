@@ -74,7 +74,8 @@ class _DPLocationScreenState extends State<DPLocationScreen> {
 			connstr = "Connected";
 			return Scaffold(
 				appBar: getAppBar( titlestr),
-				bottomNavigationBar: getBottomAppBar(context),
+				//bottomNavigationBar: getBottomAppBar(context),
+				bottomNavigationBar: getBottomNavigationBar(context),
 				body: FutureBuilder(
 					future: UserLocation.getValue(),
 					builder: (BuildContext context, dynamic snapshot) {
@@ -109,7 +110,8 @@ class _DPLocationScreenState extends State<DPLocationScreen> {
     	return Scaffold(
 				appBar: getAppBar( titlestr),
 				body: getNoInternetWidget(),
-				bottomNavigationBar: getBottomAppBar(context),
+				//bottomNavigationBar: getBottomAppBar(context),
+				bottomNavigationBar: getBottomNavigationBar(context),
 			);
 		}
   }

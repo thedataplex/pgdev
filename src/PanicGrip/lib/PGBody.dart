@@ -13,14 +13,17 @@ import 'package:go_router/go_router.dart';
 import "PGStyles.dart";
 import "PGHeader.dart";
 import "PGFooter.dart";
+import "PGInit.dart";
+import "PGButton.dart";
+import "PGWidget.dart";
 import "actions.dart";
 import "PGAlarm.dart";
 import "PGFlashlight.dart";
 import "PGLocation.dart";
-import "processCamera.dart";
-import "processSettings.dart";
-import "processTextToSpeech.dart";
-import "processPanic.dart";
+import "PGCamera.dart";
+import "PGSettings.dart";
+import "PGTextToSpeech.dart";
+import "PGPanic.dart";
 
 const String dptitle = "DataPlex PanicGrip";
 
@@ -54,125 +57,51 @@ Widget getBody(BuildContext context)
 			children: <Widget>[
 
 					Container(
-						decoration: BoxDecoration(
-							shape: BoxShape.rectangle,
-							//border: new BoxBorder(),
-							color: Colors.red,
-							border: Border.all(
-            		color: Colors.red,
-            		width: 5,
-          		),
-						), 
 						padding: const EdgeInsets.all(8),
-							//color: Colors.blueAccent.shade400,
-							//color: Colors.lightBlueAccent,
-							//color: Colors.orangeAccent,
-							color: header_background_color,
-							child: ElevatedButton.icon(
-							//child: IconButton(
-								style: style2,
-								onPressed: () {
-									processAlarmButton(context);
-								},
-								label: const Text('Alarm'),
-								icon: Icon(Icons.access_alarms),
-							),
+						color: header_background_color,
+						child: getElevatedButtonIcon(context, processAlarmButton, 'Alarm', style2, Icons.access_alarms),
 					), //Container
 
 					Container(
 						padding: const EdgeInsets.all(8),
-							//color: Colors.blueAccent.shade400,
-							//color: Colors.lightBlueAccent,
-							//color: Colors.orangeAccent,
-							color: header_background_color,
-							child: ElevatedButton.icon(
-								style: style2,
-								onPressed: () {
-									processFlashlightButton(context);
-								},
-								label: const Text('Flashlight'),
-								icon: Icon(Icons.flashlight_on_sharp),
-							),
+						color: header_background_color,
+						child: getElevatedButtonIcon(context, processFlashlightButton, 'Flashlight', style2, Icons.flashlight_on_sharp),
 					), //Container
 
 					Container(
 						padding: const EdgeInsets.all(8),
-							//color: Colors.blueAccent.shade400,
-							//color: Colors.orangeAccent,
-							color: header_background_color,
-							child: ElevatedButton.icon(
-								style: style2,
-								onPressed: () {processRearCameraButton();},
-								label: const Text('Camera'),
-								icon: Icon(Icons.camera_alt_outlined),
-						),
+						color: header_background_color,
+						child: getElevatedButtonIcon(context, processRearCameraButton, 'Camera', style2, Icons.camera_alt_outlined),
 					), //Container
 
 					Container(
 						padding: const EdgeInsets.all(8),
-							//color: Colors.blueAccent.shade400,
-							//color: Colors.orangeAccent,
-							color: header_background_color,
-							child: ElevatedButton.icon(
-								style: style2,
-								onPressed: () {
-									processLocationButton(context);
-								},
-								label: const Text('Location'),
-								icon: Icon(Icons.add_location_alt_sharp),
-							),
+						color: header_background_color,
+						child: getElevatedButtonIcon(context, processLocationButton, 'Location', style2, Icons.add_location_alt_sharp),
 					), //Container
 
 					Container(
 						padding: const EdgeInsets.all(8),
-							//color: Colors.blueAccent.shade400,
-							//color: Colors.orangeAccent,
-							color: header_background_color,
-							child: ElevatedButton.icon(
-							style: style2,
-							onPressed: () {processFlashlightButton(context);},
-							label: const Text('Flashlight'),
-							icon: Icon(Icons.flashlight_on_sharp),
-						),
+						color: header_background_color,
+						child: getElevatedButtonIcon(context, processFlashlightButton, 'Flashlight', style2, Icons.flashlight_on_sharp),
 					), //Container
 
 					Container(
 						padding: const EdgeInsets.all(8),
-							//color: Colors.blueAccent.shade400,
-							//color: Colors.orangeAccent,
-							color: header_background_color,
-							child: ElevatedButton.icon(
-							style: style2,
-							onPressed: () {processTextToSpeech();},
-							label: const Text('Text/SMS'),
-							icon: Icon(Icons.sms),
-						),
+						color: header_background_color,
+						child: getElevatedButtonIcon(context, processTextToSpeech, 'Text/SMS', style2, Icons.sms),
 					), //Container
 
 					Container(
 						padding: const EdgeInsets.all(8),
-							//color: Colors.blueAccent.shade400,
-							//color: Colors.orangeAccent,
-							color: header_background_color,
-							child: ElevatedButton.icon(
-							style: style2,
-							onPressed: () {processCallButton(context);},
-							label: const Text('Call'),
-							icon: Icon(Icons.add_call),
-						),
+						color: header_background_color,
+						child: getElevatedButtonIcon(context, processCallButton, 'Call', style2, Icons.add_call),
 					), //Container
 
 					Container(
 						padding: const EdgeInsets.all(8),
-							//color: Colors.blueAccent.shade400,
-							//color: Colors.orangeAccent,
-							color: header_background_color,
-							child: ElevatedButton.icon(
-							style: style2,
-							onPressed: () {processSettingsButton();},
-							label: const Text('Settings'),
-							icon: Icon(Icons.settings),
-						),
+						color: header_background_color,
+						child: getElevatedButtonIcon(context, processSettingsButton, 'Settings', style2, Icons.settings),
 					), //Container
 
 					/*

@@ -19,10 +19,10 @@ import "actions.dart";
 import "PGAlarm.dart";
 import "PGFlashlight.dart";
 import "PGLocation.dart";
-import "processCamera.dart";
-import "processSettings.dart";
-import "processTextToSpeech.dart";
-import "processPanic.dart";
+import "PGCamera.dart";
+import "PGSettings.dart";
+import "PGTextToSpeech.dart";
+import "PGPanic.dart";
 
 const String dptitle = "DataPlex PanicGrip";
 

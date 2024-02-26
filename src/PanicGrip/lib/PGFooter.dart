@@ -11,7 +11,7 @@ import 'package:go_router/go_router.dart';
 
 //Local Files
 import "PGStyles.dart";
-import "processPanic.dart";
+import "PGPanic.dart";
 
 Widget getFooter(BuildContext context)
 {
@@ -43,12 +43,29 @@ Widget getFooter(BuildContext context)
 
 Widget getBottomAppBar([BuildContext? context])
 {
-
 	return BottomAppBar(
 		color: footer_background_color,
 		child: new Row(
 			mainAxisSize: MainAxisSize.max,
 			mainAxisAlignment: MainAxisAlignment.spaceBetween,
 		), //new Row
+	);
+}
+
+Widget getBottomNavigationBar(BuildContext context)
+{
+	int curidx = 0;
+	return BottomNavigationBar(
+		backgroundColor: footer_background_color,
+		currentIndex: curidx,
+		onTap: (curidx) {
+			context.go('/');
+		},
+		items: const <BottomNavigationBarItem>[
+			BottomNavigationBarItem(
+				icon: Icon(Icons.home),
+				label: 'Home',
+ 			),
+		]
 	);
 }
