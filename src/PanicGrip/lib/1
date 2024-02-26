@@ -8,7 +8,14 @@ import "package:flutter/material.dart";
 import "package:geolocator/geolocator.dart";
 import 'package:torch_light/torch_light.dart';
 import 'package:flutter_isolate/flutter_isolate.dart';
+import 'package:go_router/go_router.dart';
 
+//Local files
+import "actions.dart"; 
+import "PGStyles.dart";
+import "PGInit.dart";  
+import "PGHeader.dart";
+import "PGFooter.dart";
 
 int fbcnt = 0;
 bool torchon = false;
@@ -58,11 +65,37 @@ Future<void> disableTorch() async
 	}
 }
 
-void processFlashlightButton() async
+class DPFlashlightScreen extends StatefulWidget {
+	DPFlashlightScreen({Key? key}) : super(key: key);
+	@override
+	State<DPFlashlightScreen> createState() => _DPFlashlightScreenState();
+}
+
+class _DPFlashlightScreenState extends State<DPFlashlightScreen> {
+
+	@override
+	Widget build(BuildContext context) {
+	String titlestr = "Flashlight Details";
+
+	111       return Scaffold(
+112         appBar: getAppBar( titlestr),
+113         body: getNoInternetWidget(),
+114         bottomNavigationBar: getBottomAppBar(context),
+115       );
+
+
+
+	}
+}
+
+
+
+void processFlashlightButton(BuildContext context) async
 {
 	fbcnt = fbcnt + 1;
 	final resultPort = ReceivePort();
 	//print("FlashlightButton Pressed [$fbcnt] Times");
+	context.go('/flashlight');
 	if (torchon == true) {
 		dpthread?.kill();
 		disableTorch();
@@ -72,5 +105,4 @@ void processFlashlightButton() async
 		dpthread = await FlutterIsolate.spawn(toggleTorch, "hello world");
 		print("Flashlight ON");
 	}
-	
 }
