@@ -78,3 +78,9 @@ int getPlatformType()
 	}
 	return -1;
 }
+
+FutureOr<bool> ExitScreen(BuildContext context)
+{    
+	print("Exit: Screen");       
+	return true;
+}

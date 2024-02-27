@@ -76,6 +76,17 @@ final GoRouter _router = GoRouter(
 						return DPLocationScreen();
 					},
 				),
+
+				GoRoute(
+					path: 'text_sms',
+					onExit: (BuildContext context) {
+						return ExitDPTextSMSScreen(context);
+					},
+					builder: (BuildContext context, GoRouterState state) {
+						return DPTextSMSScreen();
+					},
+				),
+
 			],
 		),
 	],
