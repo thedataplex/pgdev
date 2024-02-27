@@ -167,6 +167,16 @@ internet_connection_checker:
 	)
 	cp $(SRC_DIR)/PanicGrip/build/app/outputs/flutter-apk/app-release.apk $(OUTPUT_DIR_DEBUG)/$(APK_NAME).apk
 
+flutter_contacts:
+	$(eval APK_NAME := PGFlutterContacts)
+	ln -s -f $(SRC_DIR)/lab/flutter_contacts.dart PanicGrip/lib/main.dart
+	(\
+		cd PanicGrip;\
+		flutter pub add flutter_contacts ;\
+		flutter pub run rename_app:main all=$(APK_NAME);\
+		make debug;\
+	)
+	cp $(SRC_DIR)/PanicGrip/build/app/outputs/flutter-apk/app-release.apk $(OUTPUT_DIR_DEBUG)/$(APK_NAME).apk
 
 r:run
 d:devices

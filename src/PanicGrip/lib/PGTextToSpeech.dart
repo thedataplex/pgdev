@@ -18,6 +18,7 @@ import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_sms/flutter_sms.dart';
 
 //Local files
 import "actions.dart";
@@ -29,15 +30,30 @@ import "PGCheckInternetConnection.dart";
 
 int tscnt = 0;
 
+String smsText = "Hi This is Panic Grip App";
+TextEditingController _controller = new TextEditingController();
 
-String? _newVoiceText = "Hi This is Panic Grip App";
-   int? _inputLength;
-String? language;
-String? engine;
-double volume = 0.5;
-double pitch = 1.0;
-double rate = 0.5;
+int? _inputLength;
 enum TtsState { playing, stopped, paused, continued }
+
+//Future<void> _sendSMS(List<String> recipients) async 
+Future<void> _sendSMS() async 
+{
+	bool _sendDirect = true;
+	String _message = "This is a test message!";
+	List<String> _recipients = ["9552590411", "8208684984"];
+	try {
+		String _result = await sendSMS(
+			//message: _controllerMessage.text,
+			message: _message,
+			recipients: _recipients,
+			sendDirect: _sendDirect,
+		);
+      //setState(() => _message = _result);
+	} catch (error) {
+      //setState(() => _message = error.toString());
+	}
+}
 
 FutureOr<bool> ExitDPTextSMSScreen(BuildContext context)
 {    
@@ -45,54 +61,14 @@ FutureOr<bool> ExitDPTextSMSScreen(BuildContext context)
 	return true;
 }
 
-//TtsState ttsState = TtsState.stopped;
-
-Future _getDefaultEngine(FlutterTts flutterTts) async {
-    var engine = await flutterTts.getDefaultEngine;
-    if (engine != null) {
-      print(engine);
-    }
-  }
-
-	Future _getDefaultVoice(FlutterTts flutterTts) async {
-    var voice = await flutterTts.getDefaultVoice;
-    if (voice != null) {
-      print(voice);
-    }
-  }
-
-	Future _speak(FlutterTts flutterTts) async {
-    await flutterTts.setVolume(volume);
-    await flutterTts.setSpeechRate(rate);
-    await flutterTts.setPitch(pitch);
-
-    if (_newVoiceText != null) {
-      if (_newVoiceText!.isNotEmpty) {
-        await flutterTts.speak(_newVoiceText!);
-      }
-    }
-  }
-
-	Future _setAwaitOptions(FlutterTts flutterTts) async {
-    await flutterTts.awaitSpeakCompletion(true);
-  }
-
-  Future _stop(FlutterTts flutterTts) async {
-    var result = await flutterTts.stop();
-    //if (result == 1) ttsState = TtsState.stopped);
-  }
-
-  Future _pause(FlutterTts flutterTts) async {
-    var result = await flutterTts.pause();
-    //if (result == 1) ttsState = TtsState.paused);
-  }
-
 void processTextToSpeech(BuildContext context) async
 {
 	//runApp(DPTextSMSScreen());
 	tscnt = tscnt + 1;
+
 	print("Text/SMS Pressed [$tscnt] Times");
 	FlutterTts flutterTts = FlutterTts();
+	_controller.text = smsText;
 	context.go('/text_sms');
 	/*
 	Future<dynamic> _getLanguages() async => await flutterTts.getLanguages;
@@ -111,15 +87,13 @@ class DPTextSMSScreen extends StatefulWidget {
 
 
 class _DPTextSMSScreenState extends State<DPTextSMSScreen> {
-  late FlutterTts flutterTts;
-  String? language;
-  String? engine;
+
+	late FlutterTts flutterTts;
   double volume = 0.5;
   double pitch = 1.0;
   double rate = 0.5;
   bool isCurrentLanguageInstalled = false;
 
-  String? _newVoiceText;
   int? _inputLength;
 
   TtsState ttsState = TtsState.stopped;
@@ -224,10 +198,10 @@ class _DPTextSMSScreenState extends State<DPTextSMSScreen> {
     await flutterTts.setSpeechRate(rate);
     await flutterTts.setPitch(pitch);
 
-    if (_newVoiceText != null) {
-      if (_newVoiceText!.isNotEmpty) {
-				print(_newVoiceText);
-        await flutterTts.speak(_newVoiceText!);
+    if (smsText != null) {
+      if (smsText!.isNotEmpty) {
+				print(smsText);
+        await flutterTts.speak(smsText!);
       }
     }
   }
@@ -246,54 +220,35 @@ class _DPTextSMSScreenState extends State<DPTextSMSScreen> {
     if (result == 1) setState(() => ttsState = TtsState.paused);
   }
 
+  Future _sms() async {
+    //var result = await flutterTts.pause();
+		print("Sending SMS");
+    //if (result == 1) setState(() => ttsState = TtsState.paused);
+		_sendSMS();
+  }
+  Future _share() async {
+    //var result = await flutterTts.pause();
+		print("Sending WA");
+    //if (result == 1) setState(() => ttsState = TtsState.paused);
+		//_sendSMS();
+  }
+
+  Future _email() async {
+    //var result = await flutterTts.pause();
+		print("Sending Email");
+    //if (result == 1) setState(() => ttsState = TtsState.paused);
+		//_sendSMS();
+  }
+
   @override
   void dispose() {
     super.dispose();
     flutterTts.stop();
   }
 
-  List<DropdownMenuItem<String>> getEnginesDropDownMenuItems(dynamic engines) {
-    var items = <DropdownMenuItem<String>>[];
-    for (dynamic type in engines) {
-      items.add(DropdownMenuItem(
-          value: type as String?, child: Text(type as String)));
-    }
-    return items;
-  }
-
-  void changedEnginesDropDownItem(String? selectedEngine) async {
-    await flutterTts.setEngine(selectedEngine!);
-    language = null;
-    setState(() {
-      engine = selectedEngine;
-    });
-  }
-
-  List<DropdownMenuItem<String>> getLanguageDropDownMenuItems(
-      dynamic languages) {
-    var items = <DropdownMenuItem<String>>[];
-    for (dynamic type in languages) {
-      items.add(DropdownMenuItem(
-          value: type as String?, child: Text(type as String)));
-    }
-    return items;
-  }
-
-  void changedLanguageDropDownItem(String? selectedType) {
-    setState(() {
-      language = selectedType;
-      flutterTts.setLanguage(language!);
-      if (isAndroid) {
-        flutterTts
-            .isLanguageInstalled(language!)
-            .then((value) => isCurrentLanguageInstalled = (value as bool));
-      }
-    });
-  }
-
   void _onChange(String text) {
     setState(() {
-      _newVoiceText = text;
+      smsText = text;
     });
   }
 
@@ -308,12 +263,9 @@ class _DPTextSMSScreenState extends State<DPTextSMSScreen> {
           scrollDirection: Axis.vertical,
           child: Column(
             children: [
-              _inputSection(),
+              getInputSection(),
               _btnSection(),
-              _engineSection(),
-              _futureBuilder(),
-              _buildSliders(),
-              if (isAndroid) _getMaxSpeechInputLengthSection(),
+              //_engineSection(),
             ],
           ),
         ),
@@ -321,43 +273,150 @@ class _DPTextSMSScreenState extends State<DPTextSMSScreen> {
     );
   }
 
-  Widget _engineSection() {
-    if (isAndroid) {
-      return FutureBuilder<dynamic>(
-          future: _getEngines(),
-          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            if (snapshot.hasData) {
-              return _enginesDropDownSection(snapshot.data);
-            } else if (snapshot.hasError) {
-              return Text('Error loading engines...');
-            } else
-              return Text('Loading engines...');
-          });
-    } else
-      return Container(width: 0, height: 0);
-  }
+	Widget getInputSection() => Container(
+		alignment: Alignment.topCenter,
+		//padding: EdgeInsets.only(top: 25.0, left: 25.0, right: 25.0),
+		child: TextField(
+			decoration: InputDecoration (
+				enabledBorder: OutlineInputBorder (
+					borderSide: BorderSide (
+						width: 3,
+						color: Colors.greenAccent,
+					),
+				),
+			),
+			controller: _controller,
+			maxLines: 11,
+			minLines: 6,
+			onChanged: (String value) {
+				_onChange(value);
+			},
+		)
+	);
 
-  Widget _futureBuilder() => FutureBuilder<dynamic>(
-      future: _getLanguages(),
-      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-        if (snapshot.hasData) {
-          return _languageDropDownSection(snapshot.data);
-        } else if (snapshot.hasError) {
-          return Text('Error loading languages...');
-        } else
-          return Text('Loading Languages...');
-      });
+	Widget getInputSection2() => Row(
+		//padding: EdgeInsets.only(top: 25.0, left: 25.0, right: 25.0),
+		mainAxisSize: MainAxisSize.max,
+		mainAxisAlignment: MainAxisAlignment.spaceBetween,
+		children: <Widget>[
+			Expanded (
+				child: Align(
+					alignment: Alignment.topCenter,
+					child: TextField(
+						decoration: InputDecoration (
+							enabledBorder: OutlineInputBorder (
+								borderSide: BorderSide (
+									width: 3,
+									color: Colors.blueAccent,
+								),
+							),
+						),
+						controller: _controller,
+						maxLines: 3,
+						minLines: 2,
+						onChanged: (String value) {
+							_onChange(value);
+						},
+					),
+				),
+			), //Expanded
 
-  Widget _inputSection() => Container(
-      alignment: Alignment.topCenter,
-      padding: EdgeInsets.only(top: 25.0, left: 25.0, right: 25.0),
-      child: TextField(
-        maxLines: 11,
-        minLines: 6,
-        onChanged: (String value) {
-          _onChange(value);
-        },
-      ));
+			Expanded (
+				child: Align(
+					alignment: Alignment.topCenter,
+					child: TextField(
+						decoration: InputDecoration (
+							enabledBorder: OutlineInputBorder (
+								borderSide: BorderSide (
+									width: 3,
+									color: Colors.greenAccent,
+								),
+							),
+						),
+						controller: _controller,
+						maxLines: 11,
+						minLines: 6,
+						onChanged: (String value) {
+							_onChange(value);
+						},
+					),
+				),
+			), //Expanded
+
+		],
+	);
+
+
+	Widget getInputSection3() => Column(
+		//padding: EdgeInsets.only(top: 25.0, left: 25.0, right: 25.0),
+		mainAxisSize: MainAxisSize.max,
+		mainAxisAlignment: MainAxisAlignment.spaceBetween,
+		children: <Widget>[
+			Expanded (
+				child: Align(
+					//alignment: Alignment.topCenter,
+					child: TextField(
+						decoration: InputDecoration (
+							enabledBorder: OutlineInputBorder (
+								borderSide: BorderSide (
+									width: 3,
+									color: Colors.blueAccent,
+								),
+							),
+						),
+						controller: _controller,
+						maxLines: 3,
+						minLines: 2,
+						onChanged: (String value) {
+							_onChange(value);
+						},
+					),
+				),
+			), //Expanded
+
+			Expanded (
+				child: Align(
+					//alignment: Alignment.topCenter,
+					child: TextField(
+						decoration: InputDecoration (
+							enabledBorder: OutlineInputBorder (
+								borderSide: BorderSide (
+									width: 3,
+									color: Colors.greenAccent,
+								),
+							),
+						),
+						controller: _controller,
+						maxLines: 11,
+						minLines: 6,
+						onChanged: (String value) {
+							_onChange(value);
+						},
+					),
+				),
+			), //Expanded
+
+		],
+	);
+
+	/*
+					child: TextField(
+						decoration: InputDecoration (
+							enabledBorder: OutlineInputBorder (
+								borderSide: BorderSide (
+									width: 3,
+									color: Colors.greenAccent,
+								),
+							),
+						),
+						controller: _controller,
+						maxLines: 11,
+						minLines: 6,
+						onChanged: (String value) {
+							_onChange(value);
+						},
+					)
+	*/
 
   Widget _btnSection() {
     return Container(
@@ -369,35 +428,20 @@ class _DPTextSMSScreenState extends State<DPTextSMSScreen> {
               'PLAY', _speak),
           _buildButtonColumn(
               Colors.red, Colors.redAccent, Icons.stop, 'STOP', _stop),
+					/*
           _buildButtonColumn(
               Colors.blue, Colors.blueAccent, Icons.pause, 'PAUSE', _pause),
+					*/
+          _buildButtonColumn(
+              Colors.blue, Colors.blueAccent, Icons.sms, 'Text', _sms),
+          _buildButtonColumn(
+              Colors.indigo, Colors.indigoAccent, Icons.share, 'Whatsapp', _share),
+          _buildButtonColumn(
+              Colors.purple, Colors.purpleAccent, Icons.email, 'Email', _email),
         ],
       ),
     );
   }
-
-  Widget _enginesDropDownSection(dynamic engines) => Container(
-        padding: EdgeInsets.only(top: 50.0),
-        child: DropdownButton(
-          value: engine,
-          items: getEnginesDropDownMenuItems(engines),
-          onChanged: changedEnginesDropDownItem,
-        ),
-      );
-
-  Widget _languageDropDownSection(dynamic languages) => Container(
-      padding: EdgeInsets.only(top: 10.0),
-      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        DropdownButton(
-          value: language,
-          items: getLanguageDropDownMenuItems(languages),
-          onChanged: changedLanguageDropDownItem,
-        ),
-        Visibility(
-          visible: isAndroid,
-          child: Text("Is installed: $isCurrentLanguageInstalled"),
-        ),
-      ]));
 
   Column _buildButtonColumn(Color color, Color splashColor, IconData icon,
       String label, Function func) {
@@ -418,68 +462,5 @@ class _DPTextSMSScreenState extends State<DPTextSMSScreen> {
                       fontWeight: FontWeight.w400,
                       color: color)))
         ]);
-  }
-
-  Widget _getMaxSpeechInputLengthSection() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        ElevatedButton(
-          child: Text('Get max speech input length'),
-          onPressed: () async {
-            _inputLength = await flutterTts.getMaxSpeechInputLength;
-						print("Input Length = $_inputLength");
-            setState(() {});
-          },
-        ),
-        Text("$_inputLength characters"),
-      ],
-    );
-  }
-
-  Widget _buildSliders() {
-    return Column(
-      children: [_volume(), _pitch(), _rate()],
-    );
-  }
-
-  Widget _volume() {
-    return Slider(
-        value: volume,
-        onChanged: (newVolume) {
-          setState(() => volume = newVolume);
-        },
-        min: 0.0,
-        max: 1.0,
-        divisions: 10,
-        label: "Volume: $volume");
-  }
-
-  Widget _pitch() {
-    return Slider(
-      value: pitch,
-      onChanged: (newPitch) {
-        setState(() => pitch = newPitch);
-      },
-      min: 0.5,
-      max: 2.0,
-      divisions: 15,
-      label: "Pitch: $pitch",
-      activeColor: Colors.red,
-    );
-  }
-
-  Widget _rate() {
-    return Slider(
-      value: rate,
-      onChanged: (newRate) {
-        setState(() => rate = newRate);
-      },
-      min: 0.0,
-      max: 1.0,
-      divisions: 10,
-      label: "Rate: $rate",
-      activeColor: Colors.green,
-    );
   }
 }
